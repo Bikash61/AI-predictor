@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Result Dashboard</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background: #0f172a;
+            font-family: Arial;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            margin-top: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .box {
+            flex: 1;
+        }
+
+        .value {
+            font-size: 42px;
+            font-weight: bold;
+        }
+
+        .low {
+            color: #22c55e;
+        }
+
+        .medium {
+            color: #facc15;
+        }
+
+        .high {
+            color: #ef4444;
+        }
+
+        .decision {
+            font-size: 28px;
+            margin-top: 20px;
+        }
+
+        .bar {
+            height: 12px;
+            background: #374151;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            width: {{ probability }}%;
+            transition: width 1s ease-in-out;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #6366f1;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #4f46e5;
+        }
+
+        canvas {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚀 AI Risk Dashboard</h1>
+
+    <div class="card">
+        <div class="stats">
+            <div class="box">
+                <p>⚠️ Churn Risk</p>
+                <div class="value">{{ probability }}%</div>
+            </div>
+
+            <div class="box">
+                <p>✅ Retention</p>
+                <div class="value">{{ retention }}%</div>
+            </div>
+        </div>
+
+        <!-- Decision -->
+        <div class="decision">
+            {% if probability < 30 %}
+                <span class="low">LOW RISK ✅</span>
+            {% elif probability < 70 %}
+                <span class="medium">MEDIUM RISK ⚠️</span>
+            {% else %}
+                <span class="high">HIGH RISK ❌</span>
+            {% endif %}
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="bar">
+            <div class="fill"></div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card">
+        <h3>📊 Risk Distribution</h3>
+        <canvas id="chart" width="200"></canvas>
+    </div>
+
+    <!-- Button -->
+    <a href="/" class="btn">⬅ Back to Form</a>
+
+</div>
+
+<script>
+const ctx = document.getElementById('chart');
+
+new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Churn', 'Retention'],
+        datasets: [{
+            data: [{{ probability }}, {{ retention }}],
+            backgroundColor: ['#ef4444', '#22c55e']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white'
+                }
+            }
+        }
+    }
+});
+</script>
+
+</body>
+</html>

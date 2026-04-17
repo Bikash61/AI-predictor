@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Customer Risk Analyzer</title>
+    <style>
+        body {
+            background: #0f172a;
+            font-family: Arial;
+            color: white;
+        }
+
+        .container {
+            width: 70%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-box {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .input-group {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 5px;
+        }
+
+        button {
+            background: #6366f1;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4f46e5;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>🚀 AI Analyzer</h1>
+
+    <div class="form-box">
+
+        <!-- Error Message -->
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="input-group">
+                    Credit Score
+                    <input type="number" name="creditscore" placeholder="Enter credit score" required>
+                </div>
+
+                <div class="input-group">
+                    Products
+                    <input type="number" name="products" placeholder="Number of products">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    Gender
+                    <select name="gender">
+                        <option value="">Select</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    Credit Card
+                    <select name="card">
+                        <option value="">Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    Age
+                    <input type="number" name="age" placeholder="Enter age" required>
+                </div>
+
+                <div class="input-group">
+                    Active Member
+                    <select name="active">
+                        <option value="">Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    Tenure
+                    <input type="number" name="tenure" placeholder="Years with bank" required>
+                </div>
+
+                <div class="input-group">
+                    Salary
+                    <input type="number" name="salary" placeholder="Estimated salary" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    Balance
+                    <input type="number" name="balance" placeholder="Account balance" required>
+                </div>
+
+                <div class="input-group">
+                    Location
+                    <select name="location">
+                        <option value="">Select</option>
+                        <option>India</option>
+                        <option>Pakistan</option>
+                        <option>Nepal</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">🚀 Analyze Risk</button>
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
